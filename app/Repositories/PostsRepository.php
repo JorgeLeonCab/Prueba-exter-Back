@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Posts;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 //use Your Model
 
@@ -16,6 +19,22 @@ class PostsRepository extends BaseRepository
      */
     public function model()
     {
-        //return YourModel::class;
+        return Posts::class;
+    }
+
+    public function getPosts() {
+        $posts = $this->model->with('user')->get();
+        Log::debug($posts);
+        return $posts;
+    }
+
+    public function createPost($data) {
+        $user = User::find($data['user_id']);
+        $post = $this->model->create([
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'user_id' => $user->id
+        ]);
+        return $post;
     }
 }

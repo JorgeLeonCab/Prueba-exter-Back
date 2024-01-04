@@ -1,12 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\postCommentsRequest;
 use App\Models\Comments;
+use App\Services\CommentsService;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
+    protected CommentsService $comments_service;
+
+    public function __construct(CommentsService $comments_service)
+    {
+        $this->comments_service = $comments_service;
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -26,9 +36,22 @@ class CommentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(postCommentsRequest $request)
     {
-        //
+        try {
+            $data = $request->validated();
+            $response = $this->comments_service->postComment($data);
+
+            return response()->json([
+                'message' => 'Comentario creado satisfactoriamente!!', 
+                'data' => $response
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ocurrio un error :c',
+                'data' => $th->getMessage()
+            ], 500);
+        }
     }
 
     /**

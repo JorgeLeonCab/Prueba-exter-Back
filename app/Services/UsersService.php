@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Laravel\Passport\Bridge\UserRepository;
 
 /**
@@ -21,7 +22,7 @@ class UsersService
     public function createUser($data) {
         $data['password'] = Hash::make($data['password']);
         $user = $this->user_repository->createUser($data);
-        $accessToken = $user->createToken('Token Name')->accessToken;
+        $accessToken = $user->createToken('Token name')->accessToken;
         return [
             'user' => $user,
             'access_token' => $accessToken,
@@ -33,7 +34,8 @@ class UsersService
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return 'Correo o contraseña incorrectos';
         }
-        $accessToken = $user->createToken('authToken')->accessToken;
+        $accessToken = $user->createToken('Token name')->plainTextToken;
+        Log::debug($accessToken);
         return [
             'user' => $user,
             'access_token' => $accessToken,
