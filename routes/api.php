@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\PostsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'registerUser'])->name('register');
 Route::post('/login', [AuthController::class, 'loginUser'])->name("login");
+Route::post('/create-post', [PostsController::class, 'createPosts'])->name("create-posts");

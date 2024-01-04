@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    public function createPosts(Request $request) {
+        $test = Auth::user();
+        return [
+            '1' => $request->all(),
+            '2' => $test
+        ];
+    }
+    
     public function index()
     {
         //
