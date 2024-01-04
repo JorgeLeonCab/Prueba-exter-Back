@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Comments;
 use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;

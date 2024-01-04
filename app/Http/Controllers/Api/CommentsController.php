@@ -20,9 +20,9 @@ class CommentsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        // 
     }
 
     /**
@@ -57,9 +57,18 @@ class CommentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Comments $comments)
+    public function show($id)
     {
-        //
+        try {
+            // return $id;
+            $response = $this->comments_service->getCommentsPub($id);
+            return $response;
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ocurrio un error :c',
+                'data' => $th->getMessage()
+            ], 500);
+        }
     }
 
     /**

@@ -20,6 +20,10 @@ class CommentsRepository extends BaseRepository
         return Comments::class;
     }
 
+    public function getCommentsPub($id) {
+        return $this->model->with('user')->where('post_id', $id)->get();
+    }
+
     public function postComment($data){
         $comment = $this->model->create([
             'user_id' => $data['user_id'],

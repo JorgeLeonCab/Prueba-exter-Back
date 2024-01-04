@@ -16,6 +16,10 @@ class CommentsService
         $this->comments_repository = $comments_repository;
     }
 
+    public function getCommentsPub($id) {
+        return $this->comments_repository->getCommentsPub($id);
+    }
+
     public function postComment($data){
         return $this->comments_repository->postComment($data);
     }

@@ -8,7 +8,7 @@ use App\Models\Posts;
 use App\Models\User;
 use App\Services\PostsService;
 use Illuminate\Http\Client\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
