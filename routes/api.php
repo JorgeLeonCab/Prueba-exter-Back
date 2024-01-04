@@ -17,14 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::post('/register', [AuthController::class, 'registerUser'])->name('register');
 Route::post('/login', [AuthController::class, 'loginUser'])->name("login");
 
-// Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function () {
     Route::resource('/post', PostsController::class);
     Route::resource('/comments', CommentsController::class);
-// });
+});

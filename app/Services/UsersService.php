@@ -22,7 +22,7 @@ class UsersService
     public function createUser($data) {
         $data['password'] = Hash::make($data['password']);
         $user = $this->user_repository->createUser($data);
-        $accessToken = $user->createToken('Token name')->accessToken;
+        $accessToken = $user->createToken('Token name');
         return [
             'user' => $user,
             'access_token' => $accessToken,
@@ -34,7 +34,7 @@ class UsersService
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return 'Correo o contraseña incorrectos';
         }
-        $accessToken = $user->createToken('Token name')->plainTextToken;
+        $accessToken = $user->createToken('authToken')->accessToken;
         Log::debug($accessToken);
         return [
             'user' => $user,
