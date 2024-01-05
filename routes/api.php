@@ -3,6 +3,10 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\CommentsController;
+use App\Http\Controllers\Api\ExcelController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Middleware\adminMiddleware;
+use App\Http\Middleware\bajaMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +26,21 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/register', [AuthController::class, 'registerUser'])->name('register');
-Route::post('/login', [AuthController::class, 'loginUser'])->name("login");
 Route::post('/logout/{id}', [AuthController::class, 'logOut'])->name("logout");
+Route::get('/export-users', [ExcelController::class, 'exportUsersExcel'])->name('export-user-excel');
 
-Route::middleware('auth:api')->group(function () {
-    Route::resource('/post', PostsController::class);
-    Route::resource('/comments', CommentsController::class);
+Route::middleware(bajaMiddleware::class)->group(function () {
+
+    Route::post('/login', [AuthController::class, 'loginUser'])->name("login");
+    
+    Route::middleware('auth:api')->group(function () {
+        Route::resource('/post', PostsController::class)->names('post');
+        Route::resource('/comments', CommentsController::class)->names('comment');
+    });
+    
+    Route::prefix('/admin/{user_id}')->group(function () {
+        Route::middleware(['auth:api', adminMiddleware::class])->group(function () {
+            Route::resource('/user', UserController::class)->names('user');
+        });
+});
 });

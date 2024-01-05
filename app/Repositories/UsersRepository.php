@@ -25,6 +25,7 @@ class UsersRepository extends BaseRepository
     public function createUser($data) {
         try {
             DB::beginTransaction();
+            $data['baja'] = '0';
             $user = $this->model->create($data);
             DB::commit();
             return $user;   
@@ -33,12 +34,21 @@ class UsersRepository extends BaseRepository
         }
     }
 
-    public function findUser($data) {
-        $user = $this->model->where('email', $data['email'])->first();
-        return $user;
+    public function findUser($email) {
+        return $this->model->with('roles')->where('email', $email)->first();
     }
 
     public function findUserById($id) {
         return $this->model->find($id);
+    }
+
+    public function getUsers() {
+        return $this->model->with('roles')->get();
+    }
+
+    public function deleteUser($id) {
+        $user = $this->model->find($id);
+        $user->update(['baja' => '1']);
+        return $user;
     }
 }

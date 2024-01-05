@@ -24,8 +24,7 @@ class PostsRepository extends BaseRepository
     }
 
     public function getPosts() {
-        $posts = $this->model->with('user')->get();
-        Log::debug($posts);
+        $posts = $this->model->with('user')->orderBy('id', 'desc')->get();
         return $posts;
     }
 
