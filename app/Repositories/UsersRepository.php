@@ -37,4 +37,8 @@ class UsersRepository extends BaseRepository
         $user = $this->model->where('email', $data['email'])->first();
         return $user;
     }
+
+    public function findUserById($id) {
+        return $this->model->find($id);
+    }
 }

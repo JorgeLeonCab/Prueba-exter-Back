@@ -23,6 +23,7 @@ class UsersService
         $data['password'] = Hash::make($data['password']);
         $user = $this->user_repository->createUser($data);
         $accessToken = $user->createToken('Token name');
+        $user->assignRole('User');
         return [
             'user' => $user,
             'access_token' => $accessToken,
@@ -40,5 +41,11 @@ class UsersService
             'user' => $user,
             'access_token' => $accessToken,
         ];
+    }
+
+    public function logOut($id) {
+        $user = $this->user_repository->findUserById($id);
+        $user->tokens()->delete();
+        return $user;
     }
 }

@@ -57,4 +57,20 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function logOut($id) {
+        try {
+            $response = $this->user_service->logOut($id);
+
+            return response()->json([
+                'message' => '', 
+                'data' => $response
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ocurrio un error :c',
+                'data' => $th->getMessage()
+            ], 500);
+        }
+    }
 }

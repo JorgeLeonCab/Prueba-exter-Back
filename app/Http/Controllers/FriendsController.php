@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories_Users;
+use App\Models\Friends;
 use Illuminate\Http\Request;
 
-class CategoriesUsersController extends Controller
+class FriendsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class CategoriesUsersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categories_Users $categories_Users)
+    public function show(Friends $friends)
     {
         //
     }
@@ -42,7 +42,7 @@ class CategoriesUsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categories_Users $categories_Users)
+    public function edit(Friends $friends)
     {
         //
     }
@@ -50,7 +50,7 @@ class CategoriesUsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categories_Users $categories_Users)
+    public function update(Request $request, Friends $friends)
     {
         //
     }
@@ -58,7 +58,7 @@ class CategoriesUsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categories_Users $categories_Users)
+    public function destroy(Friends $friends)
     {
         //
     }
